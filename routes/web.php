@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-    
-});
+
+Route::get('inicio', 'App\Http\Controllers\Bienvenida@inicio');
+Route::post('ingresar', 'App\Http\Controllers\Bienvenida@login');
+

@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class Utilidades
 {
-    public static function consumir_api($endpoint, $data)
+    public static function consumir_api($endpoint, $data) : object
     {
         $curl = curl_init();
         curl_setopt_array($curl, array(

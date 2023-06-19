@@ -43,3 +43,10 @@ Route::get('desactivarproducto/{id}', 'App\Http\Controllers\Bienvenida@desactiva
 //
 Route::get('agregarproducto', 'App\Http\Controllers\Bienvenida@agregarproducto')->name('agregarproducto');
 
+
+Route::get('clientes', 'App\Http\Controllers\Clientes@adminclientes')->name('clientes');
+Route::get('activarcliente/{id}', 'App\Http\Controllers\Clientes@activarcliente')->name('activarcliente');
+Route::get('desactivarcliente/{id}', 'App\Http\Controllers\Clientes@desactivarcliente')->name('desactivarcliente');
+
+Route::get('preparaciones', 'App\Http\Controllers\Preparaciones@adminpreparaciones')->name('preparaciones');
+

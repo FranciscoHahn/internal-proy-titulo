@@ -54,6 +54,7 @@ class Bienvenida extends Controller
         Session::forget('idusuario');
         Session::forget('fullName');
         Session::forget('profile');
+        Session::forget('linkactivo');
 
 
         $arrrequest = array(
@@ -71,6 +72,7 @@ class Bienvenida extends Controller
             Session::put('id_usuario', $response->data->id_usuario);
             Session::put('fullName', $response->data->fullName);
             Session::put('profile', $response->data->profile);
+            Session::put('linkactivo', 'inicio');
 
             if ($response->data->profile == 'Administrador') {
                 return redirect('inicio-admin');
@@ -96,16 +98,19 @@ class Bienvenida extends Controller
         Session::forget('idusuario');
         Session::forget('fullName');
         Session::forget('profile');
+        Session::forget('linkactivo');
         return $this->inicio('sesión finalizada');
     }
 
     public function is_admin()
     {
+        Session::put('linkactivo', 'inicio');
         return view('administrador.administrador-inicio');
     }
 
     public function adminusuarios()
     {
+        Session::put('linkactivo', 'usuarios');
         $response = Utilidades::consumir_api('listar-usuarios', array('token' => Session::get('token_api')));
         if ($response->http_status_code <> 200) {
         }
@@ -115,6 +120,7 @@ class Bienvenida extends Controller
 
     public function crearusuario()
     {
+        Session::put('linkactivo', 'usuarios');
         $response = Utilidades::consumir_api('listado-perfiles', array('token' => Session::get('token_api')));
         $perfiles = $response->data->perfiles;
         return view('administrador.administrador-crear-usuario', compact('perfiles'));
@@ -122,6 +128,7 @@ class Bienvenida extends Controller
 
     public function registrousuario(Request $request)
     {
+        Session::put('linkactivo', 'usuarios');
         $response_perfiles = Utilidades::consumir_api('listado-perfiles', array('token' => Session::get('token_api')));
         $perfiles = $response_perfiles->data->perfiles;
         $data_to_send = $request->post();
@@ -148,7 +155,7 @@ class Bienvenida extends Controller
     public function activarusuario(Request $request, $id)
     {
         //dd($id);
-
+        Session::put('linkactivo', 'usuarios');
         Utilidades::consumir_api('restaurar-usuario', array('token' => Session::get('token_api'), 'id' => $id));
         $mensaje = "Registro activado";
         $response = Utilidades::consumir_api('listar-usuarios', array('token' => Session::get('token_api')));
@@ -159,7 +166,7 @@ class Bienvenida extends Controller
     public function desactivarusuario(Request $request, $id)
     {
         //dd($id);
-
+        Session::put('linkactivo', 'usuarios');
         Utilidades::consumir_api('eliminar-usuario', array('token' => Session::get('token_api'), 'id' => $id));
         $mensaje = "Registro desactivado";
         $response = Utilidades::consumir_api('listar-usuarios', array('token' => Session::get('token_api')));
@@ -169,6 +176,7 @@ class Bienvenida extends Controller
 
     public function editarusuario(Request $request, $id)
     {
+        Session::put('linkactivo', 'usuarios');
         $response = Utilidades::consumir_api('datos-usuario', array('token' => Session::get('token_api'), 'id_usuario' => $id));
         $datausuario = $response->data[0];
         $response_perfiles = Utilidades::consumir_api('listado-perfiles', array('token' => Session::get('token_api')));
@@ -179,6 +187,7 @@ class Bienvenida extends Controller
 
     public function edicionusuario(Request $request)
     {
+        Session::put('linkactivo', 'usuarios');
         $response_perfiles = Utilidades::consumir_api('listado-perfiles', array('token' => Session::get('token_api')));
         $perfiles = $response_perfiles->data->perfiles;
         $data_to_send = $request->post();
@@ -204,6 +213,7 @@ class Bienvenida extends Controller
 
     public function productos()
     {
+        Session::put('linkactivo', 'productos');
         $response_productos = Utilidades::consumir_api('obtener-productos', array('token' => Session::get('token_api')));
         $productos = $response_productos->data->productos;
         return view('administrador.administrador-productos', compact('productos'));
@@ -211,6 +221,7 @@ class Bienvenida extends Controller
 
     public function agregarproducto()
     {
+        Session::put('linkactivo', 'productos');
         $response_categoria = Utilidades::consumir_api('listar-categorias', array('token' => Session::get('token_api')));
         $categorias = $response_categoria->data;
         return view('administrador.administrador-agregar-producto', compact('categorias'));
@@ -219,6 +230,7 @@ class Bienvenida extends Controller
     public function registroproducto(Request $request)
     {
         //dd($request->post());
+        Session::put('linkactivo', 'productos');
         $response_categoria = Utilidades::consumir_api('listar-categorias', array('token' => Session::get('token_api')));
         $categorias = $response_categoria->data;
         $data_to_send = $request->post();
@@ -238,6 +250,7 @@ class Bienvenida extends Controller
 
     public function editarproducto(Request $request, $id)
     {
+        Session::put('linkactivo', 'productos');
         $response_categoria = Utilidades::consumir_api('listar-categorias', array('token' => Session::get('token_api')));
         $categorias = $response_categoria->data;
 
@@ -251,6 +264,7 @@ class Bienvenida extends Controller
     {
         //actualizar-producto
         //dd($request->post());
+        Session::put('linkactivo', 'productos');
         $mensaje = null;
         $errores = [];
         $data_to_send = $request->post();
@@ -274,6 +288,7 @@ class Bienvenida extends Controller
 
     public function activarproducto(Request $request, $id)
     {
+        Session::put('linkactivo', 'productos');
         $mensaje = null;
         if ($id) {
             Utilidades::consumir_api('activar-producto', array('token' => Session::get('token_api'), 'id' => $id));
@@ -286,6 +301,7 @@ class Bienvenida extends Controller
 
     public function desactivarproducto(Request $request, $id)
     {
+        Session::put('linkactivo', 'productos');
         $mensaje = null;
         if ($id) {
             Utilidades::consumir_api('desactivar-producto', array('token' => Session::get('token_api'), 'id' => $id));

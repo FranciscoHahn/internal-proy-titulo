@@ -51,8 +51,7 @@
         <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
             <div class="position-sticky">
                 <div class="list-group list-group-flush mx-3 mt-4">
-                    <a href="{{ route('inicio') }}" class="list-group-item list-group-item-action py-2 ripple "
-                        aria-current="true">
+                    <a href="{{ route('inicio') }}" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <i class="fas fa-home fa-fw me-3"></i><span>Inicio</span>
                     </a>
                     <a href="{{ route('usuarios') }}" class="list-group-item list-group-item-action py-2 ripple active">
@@ -65,13 +64,13 @@
 
                     <a href="#" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-book-open fa-fw me-3"></i><span>Menu</span>
-                    </a>
-                    <a href="././salir" class="list-group-item list-group-item-action py-2 ripple">
+                    </a>                   
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-table-cells fa-fw me-3"></i><span>Mesas</span>
                     </a>
                     <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
                             class="fas fa-file-invoice-dollar fa-fw me-3"></i><span>Ventas</span></a>
-                    <a href="#" class="list-group-item list-group-item-action py-2 ripple text-danger"><i
+                    <a href="{{route('salir')}}" class="list-group-item list-group-item-action py-2 ripple text-danger" ><i
                             class="fas fa-arrow-right-to-bracket fa-fw me-3"></i><span>Salir</span></a>
 
                 </div>

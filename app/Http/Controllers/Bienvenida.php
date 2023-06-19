@@ -177,7 +177,8 @@ class Bienvenida extends Controller
         //dd($datausuario);
     }
 
-    public function edicionusuario(Request $request){
+    public function edicionusuario(Request $request)
+    {
         $response_perfiles = Utilidades::consumir_api('listado-perfiles', array('token' => Session::get('token_api')));
         $perfiles = $response_perfiles->data->perfiles;
         $data_to_send = $request->post();
@@ -201,18 +202,99 @@ class Bienvenida extends Controller
         return view('administrador.administrador-editar-usuario', compact('perfiles', 'mensaje', 'errores', 'datausuario'));
     }
 
-    public function productos(){
-        //obtener-productos
+    public function productos()
+    {
         $response_productos = Utilidades::consumir_api('obtener-productos', array('token' => Session::get('token_api')));
         $productos = $response_productos->data->productos;
-        //dd($productos);
         return view('administrador.administrador-productos', compact('productos'));
     }
 
-    public function agregarproducto(){
+    public function agregarproducto()
+    {
         $response_categoria = Utilidades::consumir_api('listar-categorias', array('token' => Session::get('token_api')));
         $categorias = $response_categoria->data;
         return view('administrador.administrador-agregar-producto', compact('categorias'));
+    }
+
+    public function registroproducto(Request $request)
+    {
+        //dd($request->post());
+        $response_categoria = Utilidades::consumir_api('listar-categorias', array('token' => Session::get('token_api')));
+        $categorias = $response_categoria->data;
+        $data_to_send = $request->post();
+        $data_to_send['token'] = Session::get('token_api');
+        $response_registro = Utilidades::consumir_api('insertar-producto', $data_to_send);
+        $mensaje = null;
+        $errores = [];
+        //dd($response_registro);
+        if ($response_registro->http_status_code <> 200) {
+            $mensaje = $response_registro->message;
+            $errores = [];
+        } else {
+            $mensaje = "Registro Finalizado";
+        }
+        return view('administrador.administrador-agregar-producto', compact('categorias', 'mensaje', 'errores'));
+    }
+
+    public function editarproducto(Request $request, $id)
+    {
+        $response_categoria = Utilidades::consumir_api('listar-categorias', array('token' => Session::get('token_api')));
+        $categorias = $response_categoria->data;
+
+        $response_producto = Utilidades::consumir_api('obtener-producto-por-id', array('token' => Session::get('token_api'), 'id' => $id));
+        $producto = $response_producto->data->producto[0];
+        //obtener-producto-por-id
+        return view('administrador.administrador-editar-producto', compact('producto', 'categorias'));
+    }
+
+    public function edicionproducto(Request $request)
+    {
+        //actualizar-producto
+        //dd($request->post());
+        $mensaje = null;
+        $errores = [];
+        $data_to_send = $request->post();
+        $data_to_send['token'] = Session::get('token_api');
+        //dd($data_to_send);
+        $response_actualizar_producto = Utilidades::consumir_api('actualizar-producto', $data_to_send);
+        if ($response_actualizar_producto->http_status_code <> 200) {
+            $mensaje = $response_actualizar_producto->message;
+            $errores = [];
+        } else {
+            $mensaje = "Edición Finalizada";
+        }
+        $response_categoria = Utilidades::consumir_api('listar-categorias', array('token' => Session::get('token_api')));
+        $categorias = $response_categoria->data;
+
+        $response_producto = Utilidades::consumir_api('obtener-producto-por-id', array('token' => Session::get('token_api'), 'id' => $request->post('id')));
+        $producto = $response_producto->data->producto[0];
+        //obtener-producto-por-id
+        return view('administrador.administrador-editar-producto', compact('producto', 'categorias', 'mensaje', 'errores'));
+    }
+
+    public function activarproducto(Request $request, $id)
+    {
+        $mensaje = null;
+        if ($id) {
+            Utilidades::consumir_api('activar-producto', array('token' => Session::get('token_api'), 'id' => $id));
+            $mensaje = "Registro activado";
+        }
+        $response_productos = Utilidades::consumir_api('obtener-productos', array('token' => Session::get('token_api')));
+        $productos = $response_productos->data->productos;
+        return view('administrador.administrador-productos', compact('productos', 'mensaje'));
+    }
+
+    public function desactivarproducto(Request $request, $id)
+    {
+        $mensaje = null;
+        if ($id) {
+            Utilidades::consumir_api('desactivar-producto', array('token' => Session::get('token_api'), 'id' => $id));
+            $mensaje = "Registro desactivado";
+        }
+
+        $response_productos = Utilidades::consumir_api('obtener-productos', array('token' => Session::get('token_api')));
+        $productos = $response_productos->data->productos;
+        return view('administrador.administrador-productos', compact('productos', 'mensaje'));
     }
 
     public function is_bodeguero()

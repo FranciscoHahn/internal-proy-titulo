@@ -66,12 +66,12 @@
                     <a href="#" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-book-open fa-fw me-3"></i><span>Menu</span>
                     </a>
-                    <a href="././salir" class="list-group-item list-group-item-action py-2 ripple">
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-table-cells fa-fw me-3"></i><span>Mesas</span>
                     </a>
                     <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
                             class="fas fa-file-invoice-dollar fa-fw me-3"></i><span>Ventas</span></a>
-                    <a href="#" class="list-group-item list-group-item-action py-2 ripple text-danger"><i
+                    <a href="{{ route('salir') }}" class="list-group-item list-group-item-action py-2 ripple text-danger"><i
                             class="fas fa-arrow-right-to-bracket fa-fw me-3"></i><span>Salir</span></a>
 
                 </div>
@@ -131,7 +131,8 @@
         <div class="container pt-4">
             <div class="d-flex justify-content-between">
                 <h3 class="me-3">Administración de productos</h3>
-                <a href="{{route('agregarproducto')}}" class="btn btn-primary btn-rounded"><i class="fas fa-pizza-slice"></i>&nbsp;Agregar
+                <a href="{{ route('agregarproducto') }}" class="btn btn-primary btn-rounded"><i
+                        class="fas fa-pizza-slice"></i>&nbsp;Agregar
                     nuevo producto</a>
             </div>
             @if (isset($mensaje))
@@ -150,30 +151,43 @@
                             <th scope="col">Stock Bodega</th>
                             <th scope="col">Stock Crítico</th>
                             <th scope="col">Unidad</th>
+                            <th scope="col">Estado</th>
                             <th scope="col">Acciones</th> <!-- Nueva columna de acciones -->
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($productos as $producto)
                             <tr>
-                                <td>{{ $producto->nombre }}</td>
+                                <td>{{ $producto->nombre }}
+                                </td>
                                 <td>{{ $producto->marca }}</td>
-                                <td><img src="{{ $producto->link_imagen }}" alt="{{ $producto->nombre }}" width="100"></td>
+                                <td><img src="{{ $producto->link_imagen }}" alt="{{ $producto->nombre }}" width="100">
+                                </td>
                                 <td>{{ $producto->nombre_categoria }}</td>
                                 <td>{{ $producto->stock_bodega }} </td>
                                 <td>{{ $producto->stock_critico }}</td>
                                 <td>{{ $producto->descripcion_unidad }}</td>
                                 <td>
-                                    <a href="#" type="button" class="btn btn-link btn-sm btn-rounded">
+                                    @if ($producto->activo == 1)
+                                        <span class="badge badge-success rounded-pill d-inline">Activo</span>
+                                    @else
+                                        <span class="badge badge-danger rounded-pill d-inline">Inactivo</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('editarproducto', ['id' => $producto->id]) }}" type="button"
+                                        class="btn btn-link btn-sm btn-rounded">
                                         Editar
                                     </a>
                                     <!-- Verificar el estado del producto para mostrar el botón adecuado -->
                                     @if ($producto->activo == 1)
-                                        <a href="#" type="button" class="btn btn-link btn-sm btn-rounded">
+                                        <a href="{{ route('desactivarproducto', ['id' => $producto->id]) }}" type="button"
+                                            class="btn btn-link btn-sm btn-rounded">
                                             Desactivar
                                         </a>
                                     @else
-                                        <a href="#" type="button" class="btn btn-link btn-sm btn-rounded">
+                                        <a href="{{ route('activarproducto', ['id' => $producto->id]) }}" type="button"
+                                            class="btn btn-link btn-sm btn-rounded">
                                             Activar
                                         </a>
                                     @endif
@@ -183,7 +197,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
 
 
 

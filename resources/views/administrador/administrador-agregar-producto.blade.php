@@ -51,8 +51,7 @@
         <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
             <div class="position-sticky">
                 <div class="list-group list-group-flush mx-3 mt-4">
-                    <a href="{{ route('inicio') }}" class="list-group-item list-group-item-action py-2 ripple "
-                        aria-current="true">
+                    <a href="{{ route('inicio') }}" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
                         <i class="fas fa-home fa-fw me-3"></i><span>Inicio</span>
                     </a>
                     <a href="{{ route('usuarios') }}" class="list-group-item list-group-item-action py-2 ripple">
@@ -60,18 +59,18 @@
                     </a>
                     <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
                             class="fas fa-users fa-fw me-3"></i><span>Clientes</span></a>
-                    <a href="{{ route('productos') }}" class="list-group-item list-group-item-action py-2 ripple active"><i
+                    <a href="{{route('productos')}}" class="list-group-item list-group-item-action py-2 ripple"><i
                             class="fas fa-pizza-slice fa-fw me-3"></i><span>Productos</span></a>
 
                     <a href="#" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-book-open fa-fw me-3"></i><span>Menu</span>
-                    </a>
-                    <a href="././salir" class="list-group-item list-group-item-action py-2 ripple">
+                    </a>                   
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-table-cells fa-fw me-3"></i><span>Mesas</span>
                     </a>
                     <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
                             class="fas fa-file-invoice-dollar fa-fw me-3"></i><span>Ventas</span></a>
-                    <a href="#" class="list-group-item list-group-item-action py-2 ripple text-danger"><i
+                    <a href="{{route('salir')}}" class="list-group-item list-group-item-action py-2 ripple text-danger" ><i
                             class="fas fa-arrow-right-to-bracket fa-fw me-3"></i><span>Salir</span></a>
 
                 </div>
@@ -154,7 +153,7 @@
             @endif
 
             <div class="mt-4">
-                <form method="POST" action="#">
+                <form method="POST" action="{{route('registroproducto')}}">
                     <div class="row mb-4">
                         <!-- Categorías (Alineación izquierda) -->
                         <div class="col-3">
@@ -187,6 +186,22 @@
                             <div class="form-outline mb-4">
                                 <input type="text" id="form6Example4" class="form-control" name="link_imagen" />
                                 <label class="form-label" for="form6Example4">Link imagen</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="number" id="form6Example5" class="form-control" name="stock_inicial" />
+                                <label class="form-label" for="form6Example5">Stock inicial</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="number" id="form6Example6" class="form-control" name="stock_critico" />
+                                <label class="form-label" for="form6Example6">Stock crítico</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="form6Example7" class="form-control" name="unidad_medida" />
+                                <label class="form-label" for="form6Example7">Unidad de medida</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="form6Example8" class="form-control" name="descripcion_unidad" />
+                                <label class="form-label" for="form6Example8">Descripción unidad</label>
                             </div>
                         </div>
                     </div>

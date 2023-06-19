@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'App\Http\Controllers\Bienvenida@inicio')->name('/');
 Route::post('ingresar', 'App\Http\Controllers\Bienvenida@login')->name('ingresar');
 //logout
-Route::post('salir', 'App\Http\Controllers\Bienvenida@logout')->name('salir');
+Route::get('salir', 'App\Http\Controllers\Bienvenida@logout')->name('salir');
 Route::get('inicio', 'App\Http\Controllers\Bienvenida@inicio')->name('inicio');
 Route::get('inicio-admin', 'App\Http\Controllers\Bienvenida@is_admin')->name('inicio-admin');
 Route::get('usuarios', 'App\Http\Controllers\Bienvenida@adminusuarios')->name('usuarios');
@@ -31,6 +31,15 @@ Route::get('productos', 'App\Http\Controllers\Bienvenida@productos')->name('prod
 Route::get('inicio-bodega', 'App\Http\Controllers\Bienvenida@is_bodega');
 Route::get('inicio-cocina', 'App\Http\Controllers\Bienvenida@is_cocina');
 Route::get('inicio-mesero', 'App\Http\Controllers\Bienvenida@is_mesero');
+
+Route::post('registroproducto', 'App\Http\Controllers\Bienvenida@registroproducto')->name('registroproducto');
+//editarproducto
+Route::get('editarproducto/{id}', 'App\Http\Controllers\Bienvenida@editarproducto')->name('editarproducto');
+Route::post('edicionproducto', 'App\Http\Controllers\Bienvenida@edicionproducto')->name('edicionproducto');
+
+Route::get('activarproducto/{id}', 'App\Http\Controllers\Bienvenida@activarproducto')->name('activarproducto');
+Route::get('desactivarproducto/{id}', 'App\Http\Controllers\Bienvenida@desactivarproducto')->name('desactivarproducto');
+
 //
 Route::get('agregarproducto', 'App\Http\Controllers\Bienvenida@agregarproducto')->name('agregarproducto');
 

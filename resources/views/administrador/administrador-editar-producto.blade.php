@@ -54,12 +54,12 @@
                     <a href="{{ route('inicio') }}" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <i class="fas fa-home fa-fw me-3"></i><span>Inicio</span>
                     </a>
-                    <a href="{{ route('usuarios') }}" class="list-group-item list-group-item-action py-2 ripple active">
+                    <a href="{{ route('usuarios') }}" class="list-group-item list-group-item-action py-2 ripple ">
                         <i class="fas fa-users fa-fw me-3"></i><span>Usuarios</span>
                     </a>
                     <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
                             class="fas fa-users fa-fw me-3"></i><span>Clientes</span></a>
-                    <a href="{{route('productos')}}" class="list-group-item list-group-item-action py-2 ripple"><i
+                    <a href="{{route('productos')}}" class="list-group-item list-group-item-action py-2 ripple active"><i
                             class="fas fa-pizza-slice fa-fw me-3"></i><span>Productos</span></a>
 
                     <a href="#" class="list-group-item list-group-item-action py-2 ripple">
@@ -129,12 +129,13 @@
     <main style="margin-top: 58px;">
         <div class="container pt-4">
             <div class="d-flex justify-content-between mt-1">
-                <h3 class="me-3">Creación de usuario</h3>
-                <a href="{{ route('usuarios') }}" class="btn btn-primary btn-rounded"><i class="fas fa-arrow-left"></i>&nbsp;Volver a
-                    usuarios</a>
+                <h3 class="me-3">Edición de producto</h3>
+                <a href="{{ route('productos') }}" class="btn btn-primary btn-rounded"><i
+                        class="fas fa-pizza-slice"></i>&nbsp;Volver a
+                    productos</a>
             </div>
             @if (isset($mensaje))
-                @if ($mensaje != 'Registro Finalizado')
+                @if ($mensaje != 'Edición Finalizada')
                     <div class="rounded bg-warning text-white mt-2 px-2">
                         {{ $mensaje }}
                         <ul>
@@ -152,65 +153,66 @@
             @endif
 
             <div class="mt-4">
-                <form method="POST" action="{{ route('registrousuario') }}">
-                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                <form method="POST" action="{{ route('edicionproducto') }}">
                     <div class="row mb-4">
-                        <div class="col">
+                        <!-- Categorías (Alineación izquierda) -->
+                        <div class="col-3">
                             <div class="form-outline">
-                                <input type="text" id="form6Example1" class="form-control" name="nombres"/>
-                                <label class="form-label" for="form6Example1">Nombres</label>
+                                <label class="form-label" for="">Seleccione una categoría</label>
+                                @foreach ($categorias as $categoria)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="id_categoria"
+                                            id="flexRadioDefault1" value="{{ $categoria->id }}"
+                                            @if ($producto->id_categoria == $categoria->id) checked @endif />
+                                        <label class="form-check-label" for="flexRadioDefault1"> {{ $categoria->nombre }}
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
+
+                        <!-- Resto de los campos (Alineación derecha) -->
                         <div class="col">
-                            <div class="form-outline">
-                                <input type="text" id="form6Example2" class="form-control" name="apellidos" />
-                                <label class="form-label" for="form6Example2">Apellidos</label>
+                            <label class="form-label" for="">Datos del producto</label>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="form6Example1" class="form-control" name="nombre" value="{{$producto->nombre}}" />
+                                <label class="form-label" for="form6Example1">Nombre</label>
                             </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="text" id="form6Example2" class="form-control" name="marca" value="{{$producto->marca}}"/>
+                                <label class="form-label" for="form6Example2">Marca</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="text" id="form6Example4" class="form-control" name="link_imagen" value="{{$producto->link_imagen}}"/>
+                                <label class="form-label" for="form6Example4">Link imagen</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="number" id="form6Example5" class="form-control" name="stock_inicial" value="{{$producto->stock_bodega}}"/>
+                                <label class="form-label" for="form6Example5">Stock inicial</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="number" id="form6Example6" class="form-control" name="stock_critico" value="{{$producto->stock_critico}}"/>
+                                <label class="form-label" for="form6Example6">Stock crítico</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="form6Example7" class="form-control" name="unidad_medida" value="{{$producto->unidad_almacenamiento}}"/>
+                                <label class="form-label" for="form6Example7">Unidad de medida</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="form6Example8" class="form-control"
+                                    name="descripcion_unidad"  value="{{$producto->descripcion_unidad}}"/>
+                                <label class="form-label" for="form6Example8">Descripción unidad</label>
+                            </div>
+                            <input type="hidden" name="id" value="{{$producto->id}}">
                         </div>
                     </div>
-
-                    <!-- Text input -->
-                    <div class="form-outline mb-4">
-                        <input type="text" id="form6Example4" class="form-control" name="username" />
-                        <label class="form-label" for="form6Example4">Nombre de usuario</label>
-                    </div>
-
-                    <!-- Email input -->
-                    <div class="form-outline mb-4">
-                        <input type="email" id="form6Example5" class="form-control" name="email" />
-                        <label class="form-label" for="form6Example5">Email</label>
-                    </div>
-
-                    <div class="form-outline mb-4">
-                        <input type="text" id="form6Example6" class="form-control" name="rut" />
-                        <label class="form-label" for="form6Example6">Rut</label>
-                    </div>
-
-                    <div class="form-outline mb-4">
-                        <input type="number" id="form6Example6" class="form-control" name="telefono" />
-                        <label class="form-label" for="form6Example6">Teléfono</label>
-                    </div>
-
-                    <div class="form-outline mb-4">
-                        <input type="password" id="form6Example6" class="form-control" name="password" />
-                        <label class="form-label" for="form6Example6">Contraseña</label>
-                    </div>
-                    <div class="form-outline mb-4">
-                        <!-- Default radio -->
-                        <label class="form-label" for="">Seleccione Perfil</label>
-                        @foreach ($perfiles as $perfil)
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="id_perfil" id="flexRadioDefault1"
-                                    value="{{ $perfil->id }}" />
-                                <label class="form-check-label" for="flexRadioDefault1"> {{ $perfil->nombre }} </label>
-                            </div>
-                        @endforeach
-                    </div>
-
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-block mb-4">Crear cuenta</button>
+                    <button type="submit" class="btn btn-primary btn-block mb-4">Editar producto</button>
                 </form>
+
 
             </div>
 

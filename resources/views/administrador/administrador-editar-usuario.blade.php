@@ -65,12 +65,12 @@
                     <a href="#" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-book-open fa-fw me-3"></i><span>Menu</span>
                     </a>                   
-                    <a href="././salir" class="list-group-item list-group-item-action py-2 ripple">
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-table-cells fa-fw me-3"></i><span>Mesas</span>
                     </a>
                     <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
                             class="fas fa-file-invoice-dollar fa-fw me-3"></i><span>Ventas</span></a>
-                    <a href="#" class="list-group-item list-group-item-action py-2 ripple text-danger" ><i
+                    <a href="{{route('salir')}}" class="list-group-item list-group-item-action py-2 ripple text-danger" ><i
                             class="fas fa-arrow-right-to-bracket fa-fw me-3"></i><span>Salir</span></a>
 
                 </div>

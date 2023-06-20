@@ -49,4 +49,9 @@ Route::get('activarcliente/{id}', 'App\Http\Controllers\Clientes@activarcliente'
 Route::get('desactivarcliente/{id}', 'App\Http\Controllers\Clientes@desactivarcliente')->name('desactivarcliente');
 
 Route::get('preparaciones', 'App\Http\Controllers\Preparaciones@adminpreparaciones')->name('preparaciones');
+Route::get('agregarpreparacion', 'App\Http\Controllers\Preparaciones@agregarpreparacion')->name('agregarpreparacion');
+Route::post('agregandopreparacion', 'App\Http\Controllers\Preparaciones@agregandopreparacion')->name('agregandopreparacion');
+Route::get('editarpreparacion/{id}', 'App\Http\Controllers\Preparaciones@editarpreparacion')->name('editarpreparacion');
+Route::post('editandopreparacion', 'App\Http\Controllers\Preparaciones@editandopreparacion')->name('editandopreparacion');
+
 

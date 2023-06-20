@@ -33,27 +33,27 @@
         $(document).ready(function() {
             $('table').DataTable({
                 language: {
-                    "sProcessing": "Procesando...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "sZeroRecords": "No se encontraron resultados",
-                    "sEmptyTable": "Ningún dato disponible en esta tabla",
-                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sProcessing": "<small>Procesando...</small>",
+                    "sLengthMenu": "<small>Mostrar _MENU_ registros</small>",
+                    "sZeroRecords": "<small>No se encontraron resultados</small>",
+                    "sEmptyTable": "<small>Ningún dato disponible en esta tabla</small>",
+                    "sInfo": "<small>Registros del _START_ al _END_ de un total de _TOTAL_</small>",
+                    "sInfoEmpty": "<small>registros del 0 al 0 de un total de 0 registros</small>",
+                    "sInfoFiltered": "<small>(filtrado de un total de _MAX_ registros)</small>",
                     "sInfoPostFix": "",
                     "sSearch": "Buscar:",
                     "sUrl": "",
                     "sInfoThousands": ",",
-                    "sLoadingRecords": "Cargando...",
+                    "sLoadingRecords": "<small>Cargando...</small>",
                     "oPaginate": {
-                        "sFirst": "Primero",
-                        "sLast": "Último",
-                        "sNext": "Siguiente",
-                        "sPrevious": "Anterior"
+                        "sFirst": "<small>Primero</small>",
+                        "sLast": "<small>Último</small>",
+                        "sNext": "&rarr;",
+                        "sPrevious": "&larr;"
                     },
                     "oAria": {
-                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        "sSortAscending": ": <small>Activar para ordenar la columna de manera ascendente</small>",
+                        "sSortDescending": ": <small>Activar para ordenar la columna de manera descendente</small>"
                     }
                 }
             });

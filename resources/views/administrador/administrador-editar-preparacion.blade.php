@@ -7,7 +7,7 @@
         <div class="container pt-4">
             <div class="d-flex justify-content-between mt-1">
                 <h3 class="me-3">Edición de preparación</h3>
-                <a href="#" class="btn btn-primary btn-rounded"><i
+                <a href="{{route('preparaciones')}}" class="btn btn-primary btn-rounded"><i
                         class="fas fa-drumstick-bite"></i>&nbsp;Volver a
                     preparaciones</a>
             </div>

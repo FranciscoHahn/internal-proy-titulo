@@ -53,5 +53,13 @@ Route::get('agregarpreparacion', 'App\Http\Controllers\Preparaciones@agregarprep
 Route::post('agregandopreparacion', 'App\Http\Controllers\Preparaciones@agregandopreparacion')->name('agregandopreparacion');
 Route::get('editarpreparacion/{id}', 'App\Http\Controllers\Preparaciones@editarpreparacion')->name('editarpreparacion');
 Route::post('editandopreparacion', 'App\Http\Controllers\Preparaciones@editandopreparacion')->name('editandopreparacion');
-
-
+Route::get('admincompras', 'App\Http\Controllers\Inventario@admincompras')->name('compras');
+//agregarcompra
+Route::get('agregarcompra', 'App\Http\Controllers\Inventario@agregarcompra')->name('agregarcompra');
+Route::post('agregandocompra', 'App\Http\Controllers\Inventario@agregandocompra')->name('agregandocompra');
+Route::get('eliminardetallecompra/{id}', 'App\Http\Controllers\Inventario@eliminardetallecompra')->name('eliminardetallecompra');
+Route::get('salidasinventario', 'App\Http\Controllers\Inventario@salidasinventario')->name('salidasinventario');
+Route::get('registrarsalidainventario', 'App\Http\Controllers\Inventario@registrarsalidainventario')->name('registrarsalidainventario');
+//creandosalidasdeinventario
+Route::post('creandosalidasdeinventario', 'App\Http\Controllers\Inventario@creandosalidasdeinventario')->name('creandosalidasdeinventario');
+Route::get('eliminarsalidainventario/{id}', 'App\Http\Controllers\Inventario@eliminarsalidainventario')->name('eliminarsalidainventario');

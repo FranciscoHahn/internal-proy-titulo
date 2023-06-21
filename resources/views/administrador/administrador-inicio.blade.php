@@ -14,6 +14,8 @@
                 <li>Adminstrar preparaciones (menu disponible)</li>
                 <li>Revisar ventas</li>
                 <li>Administrar atenciones</li>
+                <li>Registrar compras, estas corresponden a las entredas de inventario</li>
+                <li>Consultar salidas de inventario (salidas de inventario desde bodega a cocina)</li>
             </ul>
 
             </p>

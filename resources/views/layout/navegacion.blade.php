@@ -64,7 +64,14 @@
                 <a href="{{ route('productos') }}"
                     class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'productos' ? 'active' : '' }}"><i
                         class="fas fa-carrot fa-fw me-3"></i><span>Productos</span></a>
-
+                <a href="{{ route('compras') }}"
+                    class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'compras' ? 'active' : '' }}">
+                    <i class="fas fas fa-truck-moving fa-fw me-3"></i><span>Compras</span>
+                </a>
+                <a href="{{ route('salidasinventario') }}"
+                    class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'salidas' ? 'active' : '' }}">
+                    <i class="fas fa-people-carry-box fa-fw me-3"></i><span>Salidas</span>
+                </a>
                 <a href="{{ route('preparaciones') }}"
                     class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'preparaciones' ? 'active' : '' }}">
                     <i class="fas fa-drumstick-bite fa-fw me-3"></i><span>Preparaciones</span>

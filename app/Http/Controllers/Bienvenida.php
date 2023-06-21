@@ -330,5 +330,9 @@ class Bienvenida extends Controller
         echo 'es mesero';
         dd(Session::all());
     }
-    
+
+    public function agregarcompra()
+    {
+        
+    }
 }

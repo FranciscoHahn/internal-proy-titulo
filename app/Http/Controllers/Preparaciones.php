@@ -15,7 +15,6 @@ class Preparaciones extends Controller
         Session::put('linkactivo', 'preparaciones');
         $response = Utilidades::consumir_api('obtener-preparaciones', array('token' => Session::get('token_api')));
         $preparaciones = $response->data->preparaciones;
-
         return view('administrador.administrador-preparaciones', compact('preparaciones'));
     }
 
@@ -24,7 +23,6 @@ class Preparaciones extends Controller
         Session::put('linkactivo', 'preparaciones');
         $response_productos = Utilidades::consumir_api('obtener-productos', array('token' => Session::get('token_api')));
         $productos = $response_productos->data->productos;
-        //dd($productos);
         return view('administrador.administrador-agregar-preparacion', compact('productos'));
     }
 

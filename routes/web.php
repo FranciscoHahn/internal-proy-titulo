@@ -63,3 +63,5 @@ Route::get('registrarsalidainventario', 'App\Http\Controllers\Inventario@registr
 //creandosalidasdeinventario
 Route::post('creandosalidasdeinventario', 'App\Http\Controllers\Inventario@creandosalidasdeinventario')->name('creandosalidasdeinventario');
 Route::get('eliminarsalidainventario/{id}', 'App\Http\Controllers\Inventario@eliminarsalidainventario')->name('eliminarsalidainventario');
+//mesas
+Route::get('mesas', 'App\Http\Controllers\Mesas@mesas')->name('iniciomesas');

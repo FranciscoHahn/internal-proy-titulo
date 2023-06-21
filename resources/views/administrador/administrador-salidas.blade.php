@@ -6,7 +6,7 @@
     <main style="margin-top: 58px;">
         <div class="container pt-4">
             <div class="d-flex justify-content-between">
-                <h3 class="me-3">Administración de salidas</h3>
+                <h3 class="me-3">Registros de salidas de bodega</h3>
                 <a href="{{ route('registrarsalidainventario') }}" class="btn btn-primary btn-rounded"><i
                         class="fas fa-people-carry-box"></i>&nbsp;Crear nueva
                     salida</a>
@@ -34,7 +34,12 @@
                                 <td>{{ $salida->fecha_salida }}</td>
                                 <td>{{ $salida->nombre_producto }}</td>
                                 <td>{{ $salida->cantidad }}</td>
-                                <td> <a href="{{ route('eliminarsalidainventario', ['id' => $salida->id]) }}" class="btn btn-outline-danger">Eliminar</a>
+                                <td> 
+                                    @if(Session::get('profile') == 'Administrador')
+                                    <a href="{{ route('eliminarsalidainventario', ['id' => $salida->id]) }}" class="btn btn-outline-danger">Eliminar</a>
+                                    @else
+                                    <span class="badge badge-info">Sin acciones disponibles</span>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

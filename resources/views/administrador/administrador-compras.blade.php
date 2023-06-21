@@ -6,7 +6,7 @@
     <main style="margin-top: 58px;">
         <div class="container pt-4">
             <div class="d-flex justify-content-between">
-                <h3 class="me-3">Administración de compras</h3>
+                <h3 class="me-3">Registros de compras</h3>
                 <a href="{{ route('agregarcompra') }}" class="btn btn-primary btn-rounded"><i
                         class="fas fa-truck-moving"></i>&nbsp;Crear nueva
                     compra</a>
@@ -74,10 +74,13 @@
 
                                                         </div>
                                                     </li>
-                                                    <li class="list-group-item">
-                                                        <a href="{{ route('eliminardetallecompra', ['id' => $detalle->id]) }}"
-                                                            class="btn btn-outline-danger">Eliminar</a>
-                                                    </li>
+
+                                                    @if (Session::get('profile') == 'Administrador')
+                                                        <li class="list-group-item">
+                                                            <a href="{{ route('eliminardetallecompra', ['id' => $detalle->id]) }}"
+                                                                class="btn btn-outline-danger">Eliminar</a>
+                                                        </li>
+                                                    @endif
                                                 @endforeach
 
                                             </ul>

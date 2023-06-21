@@ -313,10 +313,10 @@ class Bienvenida extends Controller
         return view('administrador.administrador-productos', compact('productos', 'mensaje'));
     }
 
-    public function is_bodeguero()
+    public function is_bodega()
     {
-        echo 'es bodega';
-        dd(Session::all());
+        Session::put('linkactivo', 'inicio');
+        return view('bodega.inicio');
     }
 
     public function is_cocina()
@@ -327,8 +327,8 @@ class Bienvenida extends Controller
 
     public function is_mesero()
     {
-        echo 'es mesero';
-        dd(Session::all());
+        Session::put('linkactivo', 'inicio');
+        return view('mesero.inicio');
     }
 
     public function agregarcompra()

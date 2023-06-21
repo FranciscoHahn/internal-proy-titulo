@@ -8,10 +8,10 @@
                         <div class="card-body p-5 text-center">
 
                             <h3 class="mb-5">Siglo 21 - Empleados</h3>
-                            <form method="POST" action="././ingresar">
+                            <form method="POST" action="{{ route('ingresar') }}">
                                 <div class="form-outline mb-4">
                                     <input type="email" id="email" name="email"
-                                        class="form-control form-control-lg"/>
+                                        class="form-control form-control-lg" />
                                     <label class="form-label" for="typeEmailX-2">Correo electrónico</label>
                                 </div>
 
@@ -22,8 +22,8 @@
                                 </div>
                                 @csrf
                                 @if (isset($mensaje))
-                                    <div class="p-3 mb-2 bg-dark bg-gradient text-white rounded">
-                                        <strong>{{$mensaje}}</strong>
+                                    <div class="p-3 mb-2 badge badge-warning">
+                                        <strong>{{ $mensaje }}</strong>
                                     </div>
                                 @endif
 

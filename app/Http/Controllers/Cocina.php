@@ -7,15 +7,18 @@ use Illuminate\Support\Facades\View;
 use App\Helpers\Utilidades;
 use Session;
 
-class Mesas extends Controller
+class Cocina extends Controller
 {
 
-    public function mesas()
+    public function cocinainicio()
     {
-        Session::put('linkactivo', 'mesas');
-        $response_mesas = Utilidades::consumir_api('Compra/get_mesas', array('token' => Session::get('token_api')));
-        $mesas = $response_mesas->data->mesas;
-        return view('mesero.mesas', compact('mesas'));
+        Session::put('linkactivo', 'inicio');
+        return view('cocina.inicio');
+    }
+
+    public function pedidoscocina(){
+        Session::put('linkactivo', 'pedidos');
+        return view('cocina.pedidos');
     }
 
     public function iniciaratencion(Request $request, $idmesa)

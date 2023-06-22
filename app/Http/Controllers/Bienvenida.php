@@ -322,7 +322,7 @@ class Bienvenida extends Controller
     public function is_cocina()
     {
         echo 'es cocina';
-        dd(Session::all());
+        return view('cocina.inicio');
     }
 
     public function is_mesero()

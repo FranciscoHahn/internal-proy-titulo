@@ -94,10 +94,10 @@
                         <i class="fas fa-table-cells fa-fw me-3"></i><span>Mesas</span>
                     </a>
                 @endif
-                @if (Session::get('profile') == 'Mesero' || Session::get('profile') == 'Cocina')
-                    <a href="#"
-                        class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'atenciones' ? 'active' : '' }}"><i
-                            class="fas fa-list-check fa-fw me-3"></i><span>Atenciones</span></a>
+                @if (Session::get('profile') == 'Cocina')
+                    <a href="{{route('pedidoscocina')}}"
+                        class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'pedidos' ? 'active' : '' }}"><i
+                            class="fas fa-list-check fa-fw me-3"></i><span>Pedidos</span></a>
                 @endif
                 @if (in_array(Session::get('profile'), ['Administrador', 'Cajero']))
                     <a href="#"

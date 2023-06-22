@@ -74,3 +74,10 @@ Route::get('veratencion/{idmesa}', 'App\Http\Controllers\Mesas@veratencion')->na
 Route::get('desactivarpreparacion/{id}', 'App\Http\Controllers\Preparaciones@desactivarpreparacion')->name('desactivarpreparacion');
 Route::get('activarpreparacion/{id}', 'App\Http\Controllers\Preparaciones@activarpreparacion')->name('activarpreparacion');
 Route::get('agregarpedidos/{id}', 'App\Http\Controllers\Mesas@agregarpedidos')->name('agregarpedidos');
+Route::post('agregarpedidosatencion', 'App\Http\Controllers\Mesas@agregarpedidosatencion')->name('agregarpedidosatencion');
+
+//cocinainicio
+//atencionescocina
+
+
+Route::get('pedidoscocina', 'App\Http\Controllers\Cocina@pedidoscocina')->name('pedidoscocina');

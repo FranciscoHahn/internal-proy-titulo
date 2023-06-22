@@ -49,7 +49,6 @@
     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
         <div class="position-sticky">
             <div class="list-group list-group-flush mx-3 mt-4">
-
                 <a href="{{ route('inicio') }}"
                     class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'inicio' ? 'active' : '' }}"
                     aria-current="true">
@@ -126,7 +125,7 @@
 
             <!-- Brand -->
             <a class="navbar-brand" href="#">
-                <img src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" height="25"
+                <img src="{{ asset('logo.png') }}" height="25"
                     alt="Siglo 21" loading="lazy" />
             </a>
             <span>{{ Session::get('profile') }}</span>

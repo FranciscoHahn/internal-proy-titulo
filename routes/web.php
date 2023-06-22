@@ -65,3 +65,12 @@ Route::post('creandosalidasdeinventario', 'App\Http\Controllers\Inventario@crean
 Route::get('eliminarsalidainventario/{id}', 'App\Http\Controllers\Inventario@eliminarsalidainventario')->name('eliminarsalidainventario');
 //mesas
 Route::get('mesas', 'App\Http\Controllers\Mesas@mesas')->name('iniciomesas');
+Route::get('iniciaratencion/{idmesa}', 'App\Http\Controllers\Mesas@iniciaratencion')->name('iniciaratencion');
+//veratencion
+Route::get('veratencion/{idmesa}', 'App\Http\Controllers\Mesas@veratencion')->name('veratencion');
+
+//desactivarpreparacion
+//activarpreparacion
+Route::get('desactivarpreparacion/{id}', 'App\Http\Controllers\Preparaciones@desactivarpreparacion')->name('desactivarpreparacion');
+Route::get('activarpreparacion/{id}', 'App\Http\Controllers\Preparaciones@activarpreparacion')->name('activarpreparacion');
+Route::get('agregarpedidos/{id}', 'App\Http\Controllers\Mesas@agregarpedidos')->name('agregarpedidos');

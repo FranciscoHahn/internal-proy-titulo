@@ -331,8 +331,5 @@ class Bienvenida extends Controller
         return view('mesero.inicio');
     }
 
-    public function agregarcompra()
-    {
-        
-    }
+
 }

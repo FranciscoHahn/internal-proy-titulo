@@ -6,8 +6,9 @@
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card shadow-2-strong" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-center">
-
-                            <h3 class="mb-5">Siglo 21 - Empleados</h3>
+                            <img src="{{ asset('logo.png') }}" height="50" alt="Siglo 21" loading="lazy" />
+                            <h3 class="mb-5">Empleados</h3>
+                            
                             <form method="POST" action="{{ route('ingresar') }}">
                                 <div class="form-outline mb-4">
                                     <input type="email" id="email" name="email"

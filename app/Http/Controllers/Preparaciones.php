@@ -76,7 +76,7 @@ class Preparaciones extends Controller
         $response_prods_prep = Utilidades::consumir_api('obtener-productos-preparacion', array('token' => Session::get('token_api'), 'id_preparacion' => $id, 'activos' => 1));
         $productos_prep = [];
         $productos_prep_str = "";
-        
+
         if ($response_prods_prep->data->productos) {
             $productos_prep = array_column($response_prods_prep->data->productos, 'id');
             $productos_prep_str = implode(',', $productos_prep);
@@ -119,11 +119,11 @@ class Preparaciones extends Controller
             }
 
             $productos_componentes = [];
-            if($request->post('productos_componentes')){
+            if ($request->post('productos_componentes')) {
                 $productos_componentes = explode(',', $request->post('productos_componentes'));
             }
-            
-            
+
+
             foreach ($productos_componentes as $producto_id) {
                 //set-producto-preparacion
                 $data_set_preparacion = array(
@@ -162,5 +162,27 @@ class Preparaciones extends Controller
         $response_productos = Utilidades::consumir_api('obtener-productos', array('token' => Session::get('token_api')));
         $productos = $response_productos->data->productos;
         return view('administrador.administrador-editar-preparacion', compact('productos', 'mensaje', 'errores', 'data_preparacion', 'productos_prep', 'productos_prep_str'));
+    }
+
+    public function desactivarpreparacion(Request $request, $id)
+    {
+        //activar-preparacion
+        $mensaje = 'Registro desactivado';
+        Utilidades::consumir_api('desactivar-preparacion', array('token' => Session::get('token_api'), 'id' => $id));
+        Session::put('linkactivo', 'preparaciones');
+        $response = Utilidades::consumir_api('obtener-preparaciones', array('token' => Session::get('token_api')));
+        $preparaciones = $response->data->preparaciones;
+        return view('administrador.administrador-preparaciones', compact('preparaciones'));
+    }
+
+    public function activarpreparacion(Request $request, $id)
+    {
+        $mensaje = 'Registro activado';
+        //activar-preparacion
+        Utilidades::consumir_api('activar-preparacion', array('token' => Session::get('token_api'), 'id' => $id));
+        Session::put('linkactivo', 'preparaciones');
+        $response = Utilidades::consumir_api('obtener-preparaciones', array('token' => Session::get('token_api')));
+        $preparaciones = $response->data->preparaciones;
+        return view('administrador.administrador-preparaciones', compact('preparaciones'));
     }
 }

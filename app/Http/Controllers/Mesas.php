@@ -45,7 +45,21 @@ class Mesas extends Controller
         $pedidos = $response_ultima_atencion->data->pedidos;
         $response_menu = Utilidades::consumir_api('obtener-menu', array('token' => Session::get('token_api')));
         $menu = $response_menu->data;
+        $categorias = new \stdClass();
+
+        foreach ($menu as $item) {
+            $categoria = $item->categoria;
+
+            if (!property_exists($categorias, $categoria)) {
+                $categorias->$categoria = [];
+            }
+
+            $categorias->$categoria[] = $item;
+        }
+
+        //dd($categorias);
         //dd($menu);
-        return view('mesero.atencion', compact('atencion', 'pedidos', 'menu'));
+        //dd($menu);
+        return view('mesero.atencion', compact('atencion', 'pedidos', 'categorias'));
     }
 }

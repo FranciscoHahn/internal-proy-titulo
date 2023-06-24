@@ -18,7 +18,7 @@
 </head>
 
 <body style="">
-    
+
     @yield('content')
 
 
@@ -57,6 +57,36 @@
                     }
                 }
             });
+        });
+    </script>
+
+    <script>
+        $('.entregarpedidococina').click(function() {
+            var pedidoId = $(this).data('id'); // Obtener el ID del pedido
+            var cardId = '#cuerpocarta-' + pedidoId; // Construir el ID de la carta
+
+            $.post('{{ route('pedidodisponiblecocina') }}', {
+                id: pedidoId
+            }, function(data) {
+                $(cardId).hide();
+            });
+        });
+
+        //btnmeseroentregar
+        $('.btnmeseroentregar').click(function() {
+
+            var pedidoId = $(this).data('id'); // Obtener el ID del pedido
+            var cardId = '#pedidocardmesero-' + pedidoId; // Construir el ID de la carta
+            var badgeId = '#badgeestadoatencion-' + pedidoId;
+            var divisionId = '#divisionpedido-' + + pedidoId;
+            $(cardId).removeClass().addClass('card border border-info opacity-50');
+            var spanElement = $('<span>').addClass('badge badge-info').text('Entregado');
+            $(badgeId).replaceWith(spanElement);
+            $(this).replaceWith(spanElement);
+
+            $('#pedidostodos').append($(divisionId));
+
+
         });
     </script>
 

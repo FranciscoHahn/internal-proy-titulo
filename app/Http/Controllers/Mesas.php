@@ -47,13 +47,24 @@ class Mesas extends Controller
         $menu = $response_menu->data;
         $categorias = new \stdClass();
 
+        foreach ($pedidos as $pedido){
+            if($pedido->estado == 'en preparación'){
+                $pedido->card_class = 'success';
+            } else if ($pedido->estado == 'disponible para entrega') {
+                $pedido->card_class = 'warning';
+            } else if ($pedido->estado == 'entregado'){
+                $pedido->card_class = 'info';
+            } else {
+                $pedido->class_card = 'danger';
+            } 
+        }
+
         foreach ($menu as $item) {
             $categoria = $item->categoria;
-
             if (!property_exists($categorias, $categoria)) {
                 $categorias->$categoria = [];
             }
-
+            //'pendiente', 'en preparación', 'entregado', 'cancelado', 'disponible para entrega'
             $categorias->$categoria[] = $item;
         }
 

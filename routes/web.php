@@ -81,3 +81,4 @@ Route::post('agregarpedidosatencion', 'App\Http\Controllers\Mesas@agregarpedidos
 
 
 Route::get('pedidoscocina', 'App\Http\Controllers\Cocina@pedidoscocina')->name('pedidoscocina');
+Route::post('pedidodisponiblecocina', 'App\Http\Controllers\Cocina@pedidodisponiblecocina')->name('pedidodisponiblecocina');

@@ -39,14 +39,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" id="pedidostodos">
                             @foreach ($pedidos as $pedido)
-                                <div class="col-4 mt-2">
-                                    <div class="card border border-success">
+                                <div class="col-4 mt-2" id="divisionpedido-{{$pedido->id_pedido}}">
+                                    <div class="card border border-{{$pedido->card_class}}" id="pedidocardmesero-{{$pedido->id_pedido}}">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between">
                                                 <strong> Pedido # {{ $pedido->id_pedido }} </strong>
-                                                <a class="btn btn-sm btn-success">Entregar</a>
+                                                @if($pedido->estado == 'disponible para entrega')
+                                                    <a class="btn btn-sm btn-outline-{{$pedido->card_class}} btnmeseroentregar" data-id = "{{$pedido->id_pedido}}">Entregar en mesa</a>
+                                                @endif
 
                                             </div>
                                             <p class="card-text">
@@ -54,7 +56,7 @@
                                                 <small
                                                     class="text-muted">{{ $pedido->nombre }}&nbsp;({{ $pedido->cantidad }})
                                                     ($ {{ $pedido->precio * $pedido->cantidad }})</small><br />
-                                                <span class="badge badge-success">{{ $pedido->estado }}</span><br />
+                                                <span id="badgeestadoatencion-{{$pedido->id_pedido}}" class="badge badge-{{$pedido->card_class}}">{{ $pedido->estado }}</span><br />
                                                 <small class="text-muted"><i
                                                         class="far fa-clock"></i>&nbsp;{{ date('H:i (d-m-Y)', strtotime($pedido->fecha_hora_pedido)) }}</small>
                                             </div>

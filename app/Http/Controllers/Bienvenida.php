@@ -331,5 +331,10 @@ class Bienvenida extends Controller
         return view('mesero.inicio');
     }
 
+    public function iscajero(){
+        Session::put('linkactivo', 'inicio');
+        return view('cajero.inicio');
+    }
+
 
 }

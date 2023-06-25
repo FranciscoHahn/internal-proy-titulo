@@ -82,3 +82,8 @@ Route::post('agregarpedidosatencion', 'App\Http\Controllers\Mesas@agregarpedidos
 
 Route::get('pedidoscocina', 'App\Http\Controllers\Cocina@pedidoscocina')->name('pedidoscocina');
 Route::post('pedidodisponiblecocina', 'App\Http\Controllers\Cocina@pedidodisponiblecocina')->name('pedidodisponiblecocina');
+Route::post('pedidoentregadomesa', 'App\Http\Controllers\Mesas@pedidoentregadomesa')->name('pedidoentregadomesa');
+//cancelarpedidomesero
+Route::post('cancelarpedidomesero', 'App\Http\Controllers\Mesas@cancelarpedidomesero')->name('cancelarpedidomesero');
+//solicitarpagomesero
+Route::get('solicitarpagomesero/{idatencion}/{idmesa}', 'App\Http\Controllers\Mesas@solicitarpagomesero')->name('solicitarpagomesero');

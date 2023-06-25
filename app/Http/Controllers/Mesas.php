@@ -46,18 +46,37 @@ class Mesas extends Controller
         $response_menu = Utilidades::consumir_api('obtener-menu', array('token' => Session::get('token_api')));
         $menu = $response_menu->data;
         $categorias = new \stdClass();
-
-        foreach ($pedidos as $pedido){
-            if($pedido->estado == 'en preparación'){
+        $atencion_cerrable = true;
+        foreach ($pedidos as $pedido) {
+            if ($pedido->estado == 'en preparación') {
                 $pedido->card_class = 'success';
+                $atencion_cerrable = false;
             } else if ($pedido->estado == 'disponible para entrega') {
                 $pedido->card_class = 'warning';
-            } else if ($pedido->estado == 'entregado'){
-                $pedido->card_class = 'info';
+                $atencion_cerrable = false;
+            } else if ($pedido->estado == 'entregado') {
+                $pedido->card_class = 'info opacity-75';
             } else {
-                $pedido->class_card = 'danger';
-            } 
+                $pedido->card_class = 'secondary opacity-50';
+            }
         }
+
+        //dd($pedidos);
+
+        usort($pedidos, function ($a, $b) {
+            $order = [
+                'disponible para entrega' => 1,
+                'en preparación' => 2,
+                'entregado' => 3,
+                'cancelado' => 4
+            ]; // Define el orden de los estados
+
+            $aIndex = isset($order[$a->estado]) ? $order[$a->estado] : PHP_INT_MAX;
+            $bIndex = isset($order[$b->estado]) ? $order[$b->estado] : PHP_INT_MAX;
+
+            return $aIndex - $bIndex; // Compara los índices para determinar el orden relativo
+        });
+
 
         foreach ($menu as $item) {
             $categoria = $item->categoria;
@@ -71,7 +90,7 @@ class Mesas extends Controller
         //dd($categorias);
         //dd($menu);
         //dd($menu);
-        return view('mesero.atencion', compact('atencion', 'pedidos', 'categorias', 'idmesa'));
+        return view('mesero.atencion', compact('atencion', 'pedidos', 'categorias', 'idmesa', 'atencion_cerrable'));
     }
 
     public function agregarpedidosatencion(Request $request)
@@ -90,5 +109,57 @@ class Mesas extends Controller
         }
 
         return redirect()->route('veratencion', ['idmesa' => $request->post('idmesa')]);
+    }
+
+    public function pedidoentregadomesa(Request $request)
+    {
+
+        //Compra/modificar_estado_pedido
+        /****
+        $pedido_id = $this->input->post('pedido_id');
+        $estado = $this->input->post('estado');
+        
+         */
+        Utilidades::consumir_api(
+            'Compra/modificar_estado_pedido',
+            array(
+                'token' => Session::get('token_api'),
+                'pedido_id' => $request->post('id'),
+                'estado' => 'entregado'
+            )
+        );
+
+        return json_encode(array("respuesta_exitosa" => true));
+    }
+
+    public function cancelarpedidomesero(Request $request)
+    {
+        //btnmeserocancelarpedido
+        Utilidades::consumir_api(
+            'Compra/modificar_estado_pedido',
+            array(
+                'token' => Session::get('token_api'),
+                'pedido_id' => $request->post('id'),
+                'estado' => 'cancelado'
+            )
+        );
+        return json_encode(array("respuesta_exitosa" => true));
+    }
+
+    public function solicitarpagomesero(Request $request, $idatencion, $idmesa)
+    {
+        //actualizar_estado_atencion
+        Utilidades::consumir_api(
+            'Compra/actualizar_estado_atencion',
+            array(
+                'token' => Session::get('token_api'),
+                'atencion_id' => $idatencion,
+                'estado' => 'pago solicitado'
+            )
+        );
+        
+        //dd($idatencion. "   ".$idmesa);
+
+        return redirect()->route('veratencion', ['idmesa' => $idmesa]);
     }
 }

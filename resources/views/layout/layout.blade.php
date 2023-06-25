@@ -78,14 +78,43 @@
             var pedidoId = $(this).data('id'); // Obtener el ID del pedido
             var cardId = '#pedidocardmesero-' + pedidoId; // Construir el ID de la carta
             var badgeId = '#badgeestadoatencion-' + pedidoId;
-            var divisionId = '#divisionpedido-' + + pedidoId;
-            $(cardId).removeClass().addClass('card border border-info opacity-50');
+            var divisionId = '#divisionpedido-' + +pedidoId;
+            $(cardId).removeClass().addClass('card border border-info opacity-75');
             var spanElement = $('<span>').addClass('badge badge-info').text('Entregado');
             $(badgeId).replaceWith(spanElement);
             $(this).replaceWith(spanElement);
 
+            $.post('{{ route('pedidoentregadomesa') }}', {
+                id: pedidoId
+            }, function(data) {});
+
+
             $('#pedidostodos').append($(divisionId));
 
+
+        });
+
+
+        //cancelarpedidomesero
+        //btnmeserocancelarpedido
+        $('.btnmeserocancelarpedido').click(function() {
+
+            var pedidoId = $(this).data('id'); // Obtener el ID del pedido
+            var cardId = '#pedidocardmesero-' + pedidoId; // Construir el ID de la carta
+            var badgeId = '#badgeestadoatencion-' + pedidoId;
+            var divisionId = '#divisionpedido-' + +pedidoId;
+            $(cardId).removeClass().addClass('card border border-secondary opacity-50');
+            var spanElement = $('<span>').addClass('badge badge-secondary opacity-50').text('cancelado');
+            $(badgeId).replaceWith(spanElement);
+            $(this).hide();
+            //$(this).replaceWith(spanElement);
+
+            $.post('{{ route('cancelarpedidomesero') }}', {
+                id: pedidoId
+            }, function(data) {});
+
+
+            $('#pedidostodos').append($(divisionId));
 
         });
     </script>

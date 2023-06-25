@@ -20,7 +20,7 @@
                 @foreach ($mesas as $mesa)
                     <div class="col-3 mt-2">
                         <div class="card border border-{{ $mesa->estado == 'disponible' ? 'success' : 'primary' }}">
-                            <div class="card-body">
+                            <div class="card-body {{$mesa->estado == 'deshabilitada' ? 'opacity-50' : ''}}">
                                 <div class="d-flex justify-content-between">
                                     <h5 class="card-title">Mesa # {{ $mesa->numero }}</h5>
                                     @if (Session::get('profile') == 'Administrador')

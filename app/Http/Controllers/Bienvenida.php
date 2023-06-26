@@ -87,6 +87,9 @@ class Bienvenida extends Controller
             if ($response->data->profile == 'Bodega') {
                 return redirect('inicio-bodega');
             }
+            if($response->data->profile == 'Cajero'){
+                return redirect('inicio-cajero');
+            }
         }
     }
 
@@ -331,7 +334,7 @@ class Bienvenida extends Controller
         return view('mesero.inicio');
     }
 
-    public function iscajero(){
+    public function is_cajero(){
         Session::put('linkactivo', 'inicio');
         return view('cajero.inicio');
     }

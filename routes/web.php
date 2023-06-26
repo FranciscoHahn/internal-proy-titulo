@@ -31,6 +31,7 @@ Route::get('productos', 'App\Http\Controllers\Bienvenida@productos')->name('prod
 Route::get('inicio-bodega', 'App\Http\Controllers\Bienvenida@is_bodega');
 Route::get('inicio-cocina', 'App\Http\Controllers\Bienvenida@is_cocina');
 Route::get('inicio-mesero', 'App\Http\Controllers\Bienvenida@is_mesero');
+Route::get('inicio-cajero', 'App\Http\Controllers\Bienvenida@is_cajero');
 
 Route::post('registroproducto', 'App\Http\Controllers\Bienvenida@registroproducto')->name('registroproducto');
 //editarproducto
@@ -87,3 +88,8 @@ Route::post('pedidoentregadomesa', 'App\Http\Controllers\Mesas@pedidoentregadome
 Route::post('cancelarpedidomesero', 'App\Http\Controllers\Mesas@cancelarpedidomesero')->name('cancelarpedidomesero');
 //solicitarpagomesero
 Route::get('solicitarpagomesero/{idatencion}/{idmesa}', 'App\Http\Controllers\Mesas@solicitarpagomesero')->name('solicitarpagomesero');
+Route::get('pedidospagar','App\Http\Controllers\Cajero@pedidospagar')->name('pedidospagar');
+Route::get('print_voucher/{id}', 'App\Http\Controllers\Cajero@print_voucher')->name('print_voucher');
+Route::post('registrar_pago', 'App\Http\Controllers\Cajero@registrar_pago')->name('registrar_pago');
+//Mesas@finalizaratencion
+Route::get('finalizaratencion/{id}', 'App\Http\Controllers\Mesas@finalizaratencion')->name('finalizaratencion');

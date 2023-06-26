@@ -157,9 +157,24 @@ class Mesas extends Controller
                 'estado' => 'pago solicitado'
             )
         );
-        
+
         //dd($idatencion. "   ".$idmesa);
 
         return redirect()->route('veratencion', ['idmesa' => $idmesa]);
+    }
+
+    public function finalizaratencion(Request $request, $id)
+    {
+        /**
+         *     public function finalizar_atencion() {
+
+        //finalizar_atencion
+        $response = $this->CompraModel->finalizar_atencion($this->input->post('token'), $this->input->post('atencion_id'));
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($response);
+    
+         * * */
+        Utilidades::consumir_api('Compra/finalizar_atencion', array('token' => Session::get('token_api'), 'atencion_id' => $id));
+        return redirect()->route('iniciomesas');
     }
 }

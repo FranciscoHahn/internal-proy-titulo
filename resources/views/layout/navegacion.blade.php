@@ -88,14 +88,20 @@
                         <i class="fas fa-drumstick-bite fa-fw me-3"></i><span>Preparaciones</span>
                     </a>
                 @endif
-                @if (in_array(Session::get('profile'), ['Administrador', 'Mesero', 'Cajero']))
-                    <a href="{{route('iniciomesas')}}"
+                @if (in_array(Session::get('profile'), ['Administrador', 'Mesero']))
+                    <a href="{{ route('iniciomesas') }}"
                         class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'mesas' ? 'active' : '' }}">
                         <i class="fas fa-table-cells fa-fw me-3"></i><span>Mesas</span>
                     </a>
                 @endif
+                @if (in_array(Session::get('profile'), ['Administrador', 'Cajero']))
+                    <a href="{{ route('pedidospagar') }}"
+                        class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'atencionescajero' ? 'active' : '' }}">
+                        <i class="fas fa-table-cells fa-fw me-3"></i><span>Atenciones</span>
+                    </a>
+                @endif
                 @if (Session::get('profile') == 'Cocina')
-                    <a href="{{route('pedidoscocina')}}"
+                    <a href="{{ route('pedidoscocina') }}"
                         class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'pedidos' ? 'active' : '' }}"><i
                             class="fas fa-list-check fa-fw me-3"></i><span>Pedidos</span></a>
                 @endif
@@ -125,8 +131,7 @@
 
             <!-- Brand -->
             <a class="navbar-brand" href="#">
-                <img src="{{ asset('logo.png') }}" height="25"
-                    alt="Siglo 21" loading="lazy" />
+                <img src="{{ asset('logo.png') }}" height="25" alt="Siglo 21" loading="lazy" />
             </a>
             <span>{{ Session::get('profile') }}</span>
 

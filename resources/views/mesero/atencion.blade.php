@@ -5,18 +5,22 @@
     <main style="margin-top: 58px;">
         <div class="container pt-4">
             <div class="d-flex justify-content-between">
+                @if($atencion->estado != 'pagado')
                 <h3 class="me-3">Pedidos mesa {{ $atencion->numero }}</h3>
+                @else
+                <h3 class="me-3 text-muted">Pedidos mesa {{ $atencion->numero }}  | Pagada</h3>
+                @endif
                 <div>
                     <a href="{{ route('iniciomesas') }}"class="btn btn-primary btn-rounded"><i
                             class="fas fa-table-cells"></i>&nbsp;Volver a mesas</a>
-                    @if ($atencion_cerrable && $pedidos && $atencion->estado != 'pago solicitado')
+                    @if ($atencion_cerrable && $pedidos && $atencion->estado != 'pago solicitado' && $atencion->estado != 'pagado')
                         <a
                             href="{{ route('solicitarpagomesero', ['idatencion' => $atencion->id, 'idmesa' => $idmesa]) }}"class="btn btn-primary btn-rounded"><i
                                 class="fas fa-coins"></i>&nbsp;Solicitar Boleta</a>
                     @endif
 
-                    @if ($atencion->estado == 'pago solicitado')
-                        <a href=""class="btn btn-primary btn-rounded"><i class="fas fa-times"></i>&nbsp;Cerrar
+                    @if ($atencion->estado == 'pagado')
+                        <a href="{{route('finalizaratencion', ['id' => $atencion->id])}}" class="btn btn-primary btn-rounded"><i class="fas fa-times"></i>&nbsp;Finalizar
                             atención</a>
                     @endif
                 </div>
@@ -91,7 +95,7 @@
                         </div>
                     @endif
 
-                    @if ($atencion->estado != 'pago solicitado')
+                    @if (!in_array($atencion->estado, ['pago solicitado', 'pagado']) )
                         <div class="mt-1">
                             <div class="">
                                 <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
@@ -152,7 +156,7 @@
                         </div>
                     @endif
             </div>
-            @if ($atencion->estado != 'pago solicitado')
+            @if (!in_array($atencion->estado, ['pago solicitado', 'pagado']))
                 <div class="col-12 mt-2">
                     <button type="submit" class="btn btn-block btn-primary">Agregar pedidos indicados</button>
                 </div>

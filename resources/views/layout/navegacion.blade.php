@@ -106,10 +106,15 @@
                             class="fas fa-list-check fa-fw me-3"></i><span>Pedidos</span></a>
                 @endif
                 @if (in_array(Session::get('profile'), ['Administrador', 'Cajero']))
-                    <a href="#"
+                    <a href="{{'ventas'}}"
                         class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'ventas' ? 'active' : '' }}"><i
                             class="fas fa-file-invoice-dollar fa-fw me-3"></i><span>Ventas</span></a>
                 @endif
+                @if (in_array(Session::get('profile'), ['Administrador']))
+                <a href="#"
+                    class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'Reportes' ? 'active' : '' }}"><i
+                        class="fas fa-file-invoice-dollar fa-fw me-3"></i><span>Reportes</span></a>
+            @endif
                 <a href="{{ route('salir') }}"
                     class="list-group-item list-group-item-action py-2 ripple text-danger"><i
                         class="fas fa-arrow-right-to-bracket fa-fw me-3"></i><span>Salir</span></a>

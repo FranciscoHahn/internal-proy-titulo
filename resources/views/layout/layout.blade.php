@@ -11,7 +11,9 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-html5-2.3.6/datatables.min.css" rel="stylesheet" />
+    <link
+        href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/b-print-2.3.6/fh-3.3.2/datatables.min.css"
+        rel="stylesheet" />
 
 
 
@@ -30,37 +32,153 @@
 
 
 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-html5-2.3.6/datatables.min.js"></script>
+    <script
+        src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/b-print-2.3.6/fh-3.3.2/datatables.min.js">
+    </script>
+
+
     <script>
         $(document).ready(function() {
-            $('table').DataTable({
-                language: {
-                    "sProcessing": "<small>Procesando...</small>",
-                    "sLengthMenu": "<small>Mostrar _MENU_ registros</small>",
-                    "sZeroRecords": "<small>No se encontraron resultados</small>",
-                    "sEmptyTable": "<small>Ningún dato disponible en esta tabla</small>",
-                    "sInfo": "<small>Registros del _START_ al _END_ de un total de _TOTAL_</small>",
-                    "sInfoEmpty": "<small>registros del 0 al 0 de un total de 0 registros</small>",
-                    "sInfoFiltered": "<small>(filtrado de un total de _MAX_ registros)</small>",
-                    "sInfoPostFix": "",
-                    "sSearch": "Buscar:",
-                    "sUrl": "",
-                    "sInfoThousands": ",",
-                    "sLoadingRecords": "<small>Cargando...</small>",
-                    "oPaginate": {
-                        "sFirst": "<small>Primero</small>",
-                        "sLast": "<small>Último</small>",
-                        "sNext": "&rarr;",
-                        "sPrevious": "&larr;"
+            if ($('#tabla-ventas').length) {
+                // Setup - add a text input to each footer cell
+                $('#tabla-ventas thead tr')
+                    .clone(true)
+                    .addClass('filters')
+                    .appendTo('#tabla-ventas thead');
+
+                var table = $('#tabla-ventas').DataTable({
+                    search: false,
+                    language: {
+                        "sProcessing": "<small>Procesando...</small>",
+                        "sLengthMenu": "<small>Mostrar _MENU_ registros</small>",
+                        "sZeroRecords": "<small>No se encontraron resultados</small>",
+                        "sEmptyTable": "<small>Ningún dato disponible en esta tabla</small>",
+                        "sInfo": "<small>Registros del _START_ al _END_ de un total de _TOTAL_</small>",
+                        "sInfoEmpty": "<small>registros del 0 al 0 de un total de 0 registros</small>",
+                        "sInfoFiltered": "<small>(filtrado de un total de _MAX_ registros)</small>",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "<small>Cargando...</small>",
+                        "oPaginate": {
+                            "sFirst": "<small>Primero</small>",
+                            "sLast": "<small>Último</small>",
+                            "sNext": "&rarr;",
+                            "sPrevious": "&larr;"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": <small>Activar para ordenar la columna de manera ascendente</small>",
+                            "sSortDescending": ": <small>Activar para ordenar la columna de manera descendente</small>"
+                        },
+                        "buttons": {
+                            "copyTitle": 'Copiado al portapapeles',
+                            "copyKeys": 'Presiona <i>ctrl</i> o <i>\u2318</i> + <i>C</i> para copiar los datos de la tabla al portapapeles. <br><br>Para cancelar, haz clic en este mensaje o presiona Esc.',
+                            "copySuccess": {
+                                _: '%d filas copiadas',
+                                1: '1 fila copiada'
+                            }
+                        }
                     },
-                    "oAria": {
-                        "sSortAscending": ": <small>Activar para ordenar la columna de manera ascendente</small>",
-                        "sSortDescending": ": <small>Activar para ordenar la columna de manera descendente</small>"
+                    dom: 'Bfrtip',
+                    buttons: [{
+                            text: 'Copiar', // Cambia el nombre del botón de copiar
+                            extend: 'copyHtml5'
+                        },
+                        {
+                            text: 'Exportar a Excel', // Cambia el nombre del botón de Excel
+                            extend: 'excelHtml5'
+                        },
+                        {
+                            text: 'Exportar a PDF', // Cambia el nombre del botón de PDF
+                            extend: 'pdfHtml5'
+                        }
+                    ],
+                    orderCellsTop: true,
+                    initComplete: function() {
+                        var api = this.api();
+
+                        // For each column
+                        api
+                            .columns()
+                            .eq(0)
+                            .each(function(colIdx) {
+                                // Set the header cell to contain the input element
+                                var cell = $('.filters th').eq(
+                                    $(api.column(colIdx).header()).index()
+                                );
+                                var title = $(cell).text();
+                                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                                // On every keypress in this input
+                                $(
+                                        'input',
+                                        $('.filters th').eq($(api.column(colIdx).header()).index())
+                                    )
+                                    .off('keyup change')
+                                    .on('change', function(e) {
+                                        // Get the search value
+                                        $(this).attr('title', $(this).val());
+                                        var regexr =
+                                            '({search})'; //$(this).parents('th').find('select').val();
+
+                                        var cursorPosition = this.selectionStart;
+                                        // Search the column for that value
+                                        api
+                                            .column(colIdx)
+                                            .search(
+                                                this.value != '' ?
+                                                regexr.replace('{search}', '(((' + this.value +
+                                                    ')))') :
+                                                '',
+                                                this.value != '',
+                                                this.value == ''
+                                            )
+                                            .draw();
+                                    })
+                                    .on('keyup', function(e) {
+                                        e.stopPropagation();
+
+                                        $(this).trigger('change');
+                                        $(this)
+                                            .focus()[0]
+                                            .setSelectionRange(cursorPosition, cursorPosition);
+                                    });
+                            });
+                    },
+                });
+            } else {
+                // La tabla con ID 'tabla-ventas' no existe
+                $('table').DataTable({
+                    language: {
+                        "sProcessing": "<small>Procesando...</small>",
+                        "sLengthMenu": "<small>Mostrar _MENU_ registros</small>",
+                        "sZeroRecords": "<small>No se encontraron resultados</small>",
+                        "sEmptyTable": "<small>Ningún dato disponible en esta tabla</small>",
+                        "sInfo": "<small>Registros del _START_ al _END_ de un total de _TOTAL_</small>",
+                        "sInfoEmpty": "<small>registros del 0 al 0 de un total de 0 registros</small>",
+                        "sInfoFiltered": "<small>(filtrado de un total de _MAX_ registros)</small>",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "<small>Cargando...</small>",
+                        "oPaginate": {
+                            "sFirst": "<small>Primero</small>",
+                            "sLast": "<small>Último</small>",
+                            "sNext": "&rarr;",
+                            "sPrevious": "&larr;"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": <small>Activar para ordenar la columna de manera ascendente</small>",
+                            "sSortDescending": ": <small>Activar para ordenar la columna de manera descendente</small>"
+                        }
                     }
-                }
-            });
+                });
+            }
         });
     </script>
 

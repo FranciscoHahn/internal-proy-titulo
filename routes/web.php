@@ -93,3 +93,4 @@ Route::get('print_voucher/{id}', 'App\Http\Controllers\Cajero@print_voucher')->n
 Route::post('registrar_pago', 'App\Http\Controllers\Cajero@registrar_pago')->name('registrar_pago');
 //Mesas@finalizaratencion
 Route::get('finalizaratencion/{id}', 'App\Http\Controllers\Mesas@finalizaratencion')->name('finalizaratencion');
+Route::get('ventas', 'App\Http\Controllers\Cajero@ventas')->name('ventas');

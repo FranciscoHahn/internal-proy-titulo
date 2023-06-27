@@ -87,4 +87,15 @@ class Cajero extends Controller
         Utilidades::consumir_api('Compra/pagar_atencion', $data_send_pago);
         return redirect()->route('pedidospagar');
     }
+
+    public function ventas()
+    {
+        Session::put('linkactivo', 'ventas');
+        //Compra/ventas_todas
+        $response = Utilidades::consumir_api('Compra/ventas_todas', array());
+        $ventas = $response->data->ventas;
+        
+        return view('cajero.ventas', compact('ventas'));
+        
+    }
 }

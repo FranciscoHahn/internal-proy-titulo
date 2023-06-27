@@ -313,6 +313,7 @@ class Bienvenida extends Controller
 
         $response_productos = Utilidades::consumir_api('obtener-productos', array('token' => Session::get('token_api')));
         $productos = $response_productos->data->productos;
+        
         return view('administrador.administrador-productos', compact('productos', 'mensaje'));
     }
 

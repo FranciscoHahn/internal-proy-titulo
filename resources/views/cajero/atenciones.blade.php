@@ -7,7 +7,7 @@
                 <h3 class="me-3">Atenciones</h3>
             </div>
 
-            @if (!$atenciones)
+            @if (!$atenciones_send)
                 <div class="col-12 mt-2">
                     <div class="">
                         <div class="card-body">
@@ -17,8 +17,8 @@
                 </div>
             @else
                 <div class="row">
-                    @foreach ($atenciones as $atencion)
-                        @if ($atencion->estado != 'pagado')
+                    @foreach ($atenciones_send as $atencion)
+                        @if ($atencion->estado == 'pago solicitado')
                             <div class="col-md-4 col-sm-6 mt-2" id="">
                                 <div class="card border border-primary">
                                     <div class="card-body">

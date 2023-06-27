@@ -25,6 +25,9 @@ class Bienvenida extends Controller
             if (Session::get('profile') == 'Bodega') {
                 return redirect('inicio-bodega');
             }
+            if (Session::get('profile') == 'Cajero') {
+                return redirect('inicio-cajero');
+            }
         }
         return view('login-interno.login', compact('mensaje'));
     }
@@ -43,6 +46,9 @@ class Bienvenida extends Controller
                 return redirect('inicio-mesero');
             }
             if (Session::get('profile') == 'Bodega') {
+                return redirect('inicio-bodega');
+            }
+            if (Session::get('profile') == 'Cajero') {
                 return redirect('inicio-bodega');
             }
         }
@@ -87,7 +93,7 @@ class Bienvenida extends Controller
             if ($response->data->profile == 'Bodega') {
                 return redirect('inicio-bodega');
             }
-            if($response->data->profile == 'Cajero'){
+            if ($response->data->profile == 'Cajero') {
                 return redirect('inicio-cajero');
             }
         }
@@ -313,7 +319,7 @@ class Bienvenida extends Controller
 
         $response_productos = Utilidades::consumir_api('obtener-productos', array('token' => Session::get('token_api')));
         $productos = $response_productos->data->productos;
-        
+
         return view('administrador.administrador-productos', compact('productos', 'mensaje'));
     }
 
@@ -325,7 +331,7 @@ class Bienvenida extends Controller
 
     public function is_cocina()
     {
-        echo 'es cocina';
+        Session::put('linkactivo', 'inicio');
         return view('cocina.inicio');
     }
 
@@ -335,10 +341,14 @@ class Bienvenida extends Controller
         return view('mesero.inicio');
     }
 
-    public function is_cajero(){
+    public function is_cajero()
+    {
         Session::put('linkactivo', 'inicio');
         return view('cajero.inicio');
     }
 
-
+    public function reporteria(){
+        Session::put('linkactivo', 'reportes');
+        return view('administrador.reporteria');
+    }
 }

@@ -97,7 +97,7 @@
                 @if (in_array(Session::get('profile'), ['Administrador', 'Cajero']))
                     <a href="{{ route('pedidospagar') }}"
                         class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'atencionescajero' ? 'active' : '' }}">
-                        <i class="fas fa-table-cells fa-fw me-3"></i><span>Atenciones</span>
+                        <i class="fas fa-list-check fa-fw me-3"></i><span>Atenciones</span>
                     </a>
                 @endif
                 @if (Session::get('profile') == 'Cocina')
@@ -106,15 +106,15 @@
                             class="fas fa-list-check fa-fw me-3"></i><span>Pedidos</span></a>
                 @endif
                 @if (in_array(Session::get('profile'), ['Administrador', 'Cajero']))
-                    <a href="{{'ventas'}}"
+                    <a href="{{ route('ventas') }}"
                         class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'ventas' ? 'active' : '' }}"><i
                             class="fas fa-file-invoice-dollar fa-fw me-3"></i><span>Ventas</span></a>
                 @endif
                 @if (in_array(Session::get('profile'), ['Administrador']))
-                <a href="#"
-                    class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'Reportes' ? 'active' : '' }}"><i
-                        class="fas fa-file-invoice-dollar fa-fw me-3"></i><span>Reportes</span></a>
-            @endif
+                    <a href="{{ route('reporteria') }}"
+                        class="list-group-item list-group-item-action py-2 ripple {{ Session::get('linkactivo') == 'reportes' ? 'active' : '' }}">
+                        <i class="fas fa-chart-line fa-fw me-3"></i><span>Reportes</span></a>
+                @endif
                 <a href="{{ route('salir') }}"
                     class="list-group-item list-group-item-action py-2 ripple text-danger"><i
                         class="fas fa-arrow-right-to-bracket fa-fw me-3"></i><span>Salir</span></a>

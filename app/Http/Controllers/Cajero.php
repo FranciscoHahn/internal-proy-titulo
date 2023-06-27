@@ -16,6 +16,7 @@ class Cajero extends Controller
         Session::put('linkactivo', 'atencionescajero');
         $response_atenciones = Utilidades::consumir_api('Compra/todas_atenciones_con_info', array('token' => Session::get('token_api')));
         $atenciones = $response_atenciones->data->atenciones;
+        $atenciones_send = array();
         foreach ($atenciones as $atencion) {
             $total = 0;
             foreach ($atencion->pedidos as $pedido) {
@@ -24,19 +25,14 @@ class Cajero extends Controller
                 }
             }
             $atencion->preciototal = $total;
+            if ($atencion->estado == 'pago solicitado') {
+                $atenciones_send[] = $atencion;
+            }
         }
 
-        usort($atenciones, function ($a, $b) {
-            if ($a->estado == 'pago solicitado' && $b->estado != 'pago solicitado') {
-                return -1; // $a se coloca antes que $b
-            } elseif ($a->estado != 'pago solicitado' && $b->estado == 'pago solicitado') {
-                return 1; // $b se coloca antes que $a
-            } else {
-                return 0; // no se altera el orden relativo de $a y $b
-            }
-        });
 
-        return view('cajero.atenciones', compact('atenciones'));
+
+        return view('cajero.atenciones', compact('atenciones_send'));
     }
 
     public function print_voucher(Request $request, $id)
@@ -94,8 +90,7 @@ class Cajero extends Controller
         //Compra/ventas_todas
         $response = Utilidades::consumir_api('Compra/ventas_todas', array());
         $ventas = $response->data->ventas;
-        
+
         return view('cajero.ventas', compact('ventas'));
-        
     }
 }

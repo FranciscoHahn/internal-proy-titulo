@@ -94,3 +94,4 @@ Route::post('registrar_pago', 'App\Http\Controllers\Cajero@registrar_pago')->nam
 //Mesas@finalizaratencion
 Route::get('finalizaratencion/{id}', 'App\Http\Controllers\Mesas@finalizaratencion')->name('finalizaratencion');
 Route::get('ventas', 'App\Http\Controllers\Cajero@ventas')->name('ventas');
+Route::get('reporteria', 'App\Http\Controllers\Bienvenida@reporteria')->name('reporteria');

@@ -8,14 +8,11 @@
             <p>
                 Este panel permite un acceso rápido a las funciones correspondientes a su perfil podrá:
             <ul>
-                <li>Administrar usuarios</li>
-                <li>Administrar productos de bodega</li>
-                <li>Administrar clientes</li>
-                <li>Adminstrar preparaciones (menu disponible)</li>
-                <li>Revisar ventas</li>
-                <li>Administrar atenciones</li>
-                <li>Registrar compras, estas corresponden a las entredas de inventario</li>
-                <li>Consultar salidas de inventario (salidas de inventario desde bodega a cocina)</li>
+                <li>Iniciar atenciones</li>
+                <li>Ver mesas</li>
+                <li>Iniciar atenciones</li>
+                <li>Realizar pedidos y registrar sus entregas</li>
+                <li>Solicitar boletas y cerrar atenciones</li>
             </ul>
 
             </p>

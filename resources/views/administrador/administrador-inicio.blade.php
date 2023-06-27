@@ -15,11 +15,12 @@
                 <li>Administrar usuarios</li>
                 <li>Administrar productos de bodega</li>
                 <li>Administrar clientes</li>
-                <li>Adminstrar preparaciones (menu disponible)</li>
+                <li>Administrar preparaciones (menu disponible)</li>
                 <li>Revisar ventas</li>
-                <li>Administrar atenciones</li>
-                <li>Registrar compras, estas corresponden a las entredas de inventario</li>
+                <li>Observar Atenciones y mesas</li>
+                <li>Registrar compras, estas corresponden a las entradas de inventario</li>
                 <li>Consultar salidas de inventario (salidas de inventario desde bodega a cocina)</li>
+                <li>Acceder a reportería</li>
             </ul>
 
             </p>
